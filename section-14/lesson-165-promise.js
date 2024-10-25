@@ -46,9 +46,16 @@ const promise = new Promise(
         resolve('message error')
     });
 
-promise.then(function (result) {
-    console.log('executor goi den resolve:', result)
-})
+promise.then(
+    // function (result) {
+    //     console.log('executor goi den resolve:', result)
+    // }
+    function () {
+        return new Promise(function (resolve) {
+            setTimeout(resolve, 3000)
+        })
+    }
+)
     .catch(function (err) {
         console.log('executor goi den reject:', err)
     })
