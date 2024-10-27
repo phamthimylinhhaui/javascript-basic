@@ -63,3 +63,49 @@ promise.then(
         console.log('executor goi den resolve hoac reject')
     })
 
+// chain: xich chuoi
+// Giai quyet call back hell
+// return then tren sẽ nhận dc ở then bên dưới
+
+const promise2 = new Promise(function (resolve, reject) {
+    resolve()
+})
+
+promise2.then(function () {
+    console.log(0)
+    return 1;
+}).then(function (data) {
+    console.log(data)
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve();
+            // resolve([1,2,3, 4])
+        }, 3000)
+    });
+}).then(function (data) {
+    // 3s sau moi log ra undefined or [1,2,3, 4] vi no la promise moi .then
+    console.log(data)
+}).catch(function (err) {
+    console.log(err)
+})
+    .finally(function () {
+    console.log('done')
+})
+// exam: in ra lan luot 1 2 3
+const sleep = (ms) => {
+    return new Promise(resolve => {
+        setTimeout(resolve, ms)
+    })
+};
+sleep(1000)
+    .then(function () {
+        console.log(1);
+        return sleep(1000);
+    })
+    .then(function () {
+        console.log(2);
+        return sleep(1000);
+    })
+    .then(function () {
+        console.log(3)
+    })
