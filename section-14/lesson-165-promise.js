@@ -109,3 +109,5 @@ sleep(1000)
     .then(function () {
         console.log(3)
     })
+
+// exam reject
